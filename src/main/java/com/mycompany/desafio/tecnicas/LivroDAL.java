@@ -24,7 +24,7 @@ public class LivroDAL {
 
     public static void conecta() {
         try {
-// Use a service account
+
             InputStream serviceAccount = new FileInputStream("credenciais/db-desafio-tecnicas-9ce74-firebase-adminsdk-iy2eb-232854ee9f.json");
             GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
             FirebaseOptions options = new FirebaseOptions.Builder()
@@ -43,17 +43,17 @@ public class LivroDAL {
         try {
             if (db != null) {
                 DocumentReference docRef = db.collection("livros").document();
-// Add document data  with id "alovelace" using a hashmap
+
                 Map<String, Object> data = new HashMap<>();
                 data.put("titulo", _umlivro.getTitulo());
                 data.put("autor", _umlivro.getAutor());
                 data.put("editora", _umlivro.getEditora());
                 data.put("anoDeEdicao", _umlivro.getAnoEdicao());
                 data.put("localizacao", _umlivro.getLocalizacao());
-//asynchronously write data
+
                 ApiFuture<WriteResult> result = docRef.set(data);
-// ...
-// result.get() blocks on response
+
+
                 System.out.println("Update time : " + result.get().getUpdateTime());
             } else {
                 System.err.println("Db nao foi inicializado corretamente");
@@ -92,8 +92,8 @@ public class LivroDAL {
 
     public static void alteraLivroPorTitulo(String titulo, Livro novoLivro) {
         try {
-            if (db != null) { // Verifica se db não é nulo antes de usá-lo
-                // Realiza uma consulta para obter o ID do documento do livro com base no título
+            if (db != null) { 
+               
                 Query query = db.collection("livros").whereEqualTo("titulo", titulo);
                 QuerySnapshot querySnapshot = query.get().get();
 
